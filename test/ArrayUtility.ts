@@ -99,7 +99,7 @@ describe("[0.0] ArrayUtility.sol", async () => {
 		);
 
 		it(
-			"Should clear seen mapping after utilzing..",
+			"Should clear seen mapping after utilizing..",
 			async () => {
 				await arrayUtility.containsDuplicates([owner.address, manager.address]);
 
