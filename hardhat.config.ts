@@ -44,5 +44,8 @@ export default {
 			accounts: [`0x${process.env.PRIVATE_KEY}`]
 		},
 	},
+	paths: {
+		sources: "./contracts",
+	},
 	solidity: "0.8.18",
 } as import("hardhat/config").HardhatUserConfig;
