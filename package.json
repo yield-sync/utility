@@ -1,9 +1,12 @@
 {
 	"name": "@yield-sync/utility",
-	"version": "0.0.4",
-	"description": "",
-	"main": "index.js",
-	"scripts": {},
+	"version": "0.0.5",
+	"description": "Refer to README.md",
+	"main": "",
+	"scripts": {
+		"deploy-to-base-sepolia": "npx hardhat run scripts/depoly.ts --network base-sepolia",
+		"deploy-to-sepolia": "npx hardhat run scripts/deploy.ts --network sepolia"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/yield-sync/utility.git"
