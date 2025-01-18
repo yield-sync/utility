@@ -12,6 +12,14 @@ import { ArrayUtility } from "../ArrayUtility.sol";
 contract TestArrayUtility is
 	ArrayUtility
 {
+	function value_exists(address _value)
+		public
+		view
+		returns (bool exists_)
+	{
+		return _value_exists[_value];
+	}
+
 	function uniqueAddresses()
 		public
 		view

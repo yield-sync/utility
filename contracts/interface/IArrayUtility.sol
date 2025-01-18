@@ -5,7 +5,6 @@ pragma solidity ^0.8.18;
 interface IArrayUtility
 {
 	/**
-	* @notice Duplicates Found
 	* @return {bool}
 	*/
 	function duplicateFound()
@@ -19,7 +18,7 @@ interface IArrayUtility
 
 
 	/**
-	* @notice Sort
+	* @notice Sort `_array`
 	* @param _array {address[]}
 	* @return {address[]}
 	*/
@@ -34,7 +33,7 @@ interface IArrayUtility
 
 
 	/**
-	* @notice Check if contains duplicates
+	* @notice Check if `_array` contains duplicates
 	* @param _array {address[]}
 	* @return duplicateFound_ {bool}
 	*/
@@ -44,7 +43,7 @@ interface IArrayUtility
 	;
 
 	/**
-	* @notice Remove Duplicates from array
+	* @notice Remove duplicates from `_array`
 	* @param _array {address[]}
 	* @return {address[]}
 	*/

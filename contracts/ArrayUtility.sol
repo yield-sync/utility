@@ -12,7 +12,7 @@ contract ArrayUtility is
 
 	bool public override duplicateFound;
 
-	mapping(address => bool) public seen;
+	mapping(address value => bool exists) internal _value_exists;
 
 
 	constructor ()
@@ -111,9 +111,9 @@ contract ArrayUtility is
 
 		for (uint256 i = 0; i < _array.length; i++)
 		{
-			if (!seen[_array[i]])
+			if (!_value_exists[_array[i]])
 			{
-				seen[_array[i]] = true;
+				_value_exists[_array[i]] = true;
 			}
 			else
 			{
@@ -125,7 +125,7 @@ contract ArrayUtility is
 
 		for (uint256 i = 0; i < _array.length; i++)
 		{
-			seen[_array[i]] = false;
+			_value_exists[_array[i]] = false;
 		}
 
 		return duplicateFound;
@@ -141,9 +141,9 @@ contract ArrayUtility is
 
 		for (uint256 i = 0; i < _array.length; i++)
 		{
-			if (!seen[_array[i]])
+			if (!_value_exists[_array[i]])
 			{
-				seen[_array[i]] = true;
+				_value_exists[_array[i]] = true;
 
 				_uniqueAddresses.push(_array[i]);
 			}
@@ -151,7 +151,7 @@ contract ArrayUtility is
 
 		for (uint256 i = 0; i < _uniqueAddresses.length; i++)
 		{
-			seen[_uniqueAddresses[i]] = false;
+			_value_exists[_uniqueAddresses[i]] = false;
 		}
 
 		return _uniqueAddresses;

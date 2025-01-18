@@ -105,9 +105,9 @@ describe("[0.0] ArrayUtility.sol", async () => {
 
 				expect(await arrayUtility.duplicateFound()).to.be.equal(false);
 
-				expect(await arrayUtility.seen(owner.address)).to.be.equal(false);
+				expect(await arrayUtility.value_exists(owner.address)).to.be.equal(false);
 
-				expect(await arrayUtility.seen(manager.address)).to.be.equal(false);
+				expect(await arrayUtility.value_exists(manager.address)).to.be.equal(false);
 			}
 		);
 
