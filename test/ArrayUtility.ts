@@ -208,31 +208,31 @@ describe("[0.0] ArrayUtility.sol", async () => {
 		});
 	});
 
-	describe("function containsDuplicates()", async () => {
+	describe("function isUnique()", async () => {
 		it(
 			"Should return true if duplicates are in array..",
 			async () => {
-				await arrayUtility.containsDuplicates([owner.address, owner.address]);
+				await arrayUtility.isUnique([owner.address, owner.address]);
 
-				expect(await arrayUtility.duplicateFound()).to.be.equal(true);
+				expect(await arrayUtility.unique()).to.be.equal(true);
 			}
 		);
 
 		it(
 			"Should return false if duplicates NOT in array..",
 			async () => {
-				await arrayUtility.containsDuplicates([owner.address, manager.address]);
+				await arrayUtility.isUnique([owner.address, manager.address]);
 
-				expect(await arrayUtility.duplicateFound()).to.be.equal(false);
+				expect(await arrayUtility.unique()).to.be.equal(false);
 			}
 		);
 
 		it(
 			"Should clear seen mapping after utilizing..",
 			async () => {
-				await arrayUtility.containsDuplicates([owner.address, manager.address]);
+				await arrayUtility.isUnique([owner.address, manager.address]);
 
-				expect(await arrayUtility.duplicateFound()).to.be.equal(false);
+				expect(await arrayUtility.unique()).to.be.equal(false);
 
 				expect(await arrayUtility.value_exists(owner.address)).to.be.equal(false);
 
