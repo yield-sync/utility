@@ -27,4 +27,12 @@ contract TestAddressArrayUtility is
 	{
 		return _uniqueAddresses;
 	}
+
+	function unique()
+		public
+		view
+		returns (bool)
+	{
+		return _unique;
+	}
 }

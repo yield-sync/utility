@@ -4,21 +4,11 @@ pragma solidity ^0.8.18;
 
 interface IAddressArrayUtility
 {
-	/**
-	* @return {bool}
-	*/
-	function duplicateFound()
-		external
-		view
-		returns (bool)
-	;
-
-
 	/// @notice pure
 
 
 	/**
-	* @notice Determin if `_array` contains `_element`
+	* @notice Determine if `_array` contains `_element`
 	* @param _array {address[]}
 	* @param _element {uint256}
 	*/
@@ -29,11 +19,11 @@ interface IAddressArrayUtility
 	;
 
 	/**
-	* @notice Compute difference between `_array1` and `_array2`
-	* @param _array1 {address[]}
-	* @param _array2 {address[]}
+	* @notice Compute difference between `_arrayA` and `_arrayB`
+	* @param _arrayA {address[]}
+	* @param _arrayB {address[]}
 	*/
-	function difference(address[] memory _array1, address[] memory _array2)
+	function difference(address[] memory _arrayA, address[] memory _arrayB)
 		external
 		pure
 		returns (address[] memory)
@@ -51,18 +41,18 @@ interface IAddressArrayUtility
 	;
 
 	/**
-	* @notice Get common values of `_array1` and `_array2`
-	* @param _array1 {address[]}
-	* @param _array2 {address[]}
+	* @notice Compute shared elements of `_arrayA` and `_arrayB`
+	* @param _arrayA {address[]}
+	* @param _arrayB {address[]}
 	*/
-	function intersect(address[] memory _array1, address[] memory _array2)
+	function intersect(address[] memory _arrayA, address[] memory _arrayB)
 		external
 		pure
 		returns (address[] memory)
 	;
 
 	/**
-	* @notice Check if `_array` is sorted
+	* @notice Determine if `_array` is sorted
 	* @param _array {address[]}
 	*/
 	function isSorted(address[] memory _array)
@@ -105,11 +95,11 @@ interface IAddressArrayUtility
 	;
 
 	/**
-	* @notice Get the union of `_array1` and `_array2`
-	* @param _array1 {address[]}
-	* @param _array2 {address[]}
+	* @notice Compute the union of `_arrayA` and `_arrayB`
+	* @param _arrayA {address[]}
+	* @param _arrayB {address[]}
 	*/
-	function union(address[] memory _array1, address[] memory _array2)
+	function union(address[] memory _arrayA, address[] memory _arrayB)
 		external
 		pure
 		returns (address[] memory)
@@ -120,11 +110,11 @@ interface IAddressArrayUtility
 
 
 	/**
-	* @notice Check if `_array` contains duplicates
+	* @notice Determine if `_array` is unique
 	* @param _array {address[]}
 	* @return duplicateFound_ {bool}
 	*/
-	function containsDuplicates(address[] memory _array)
+	function isUnique(address[] memory _array)
 		external
 		returns (bool duplicateFound_)
 	;

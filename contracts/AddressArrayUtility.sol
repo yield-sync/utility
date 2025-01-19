@@ -10,14 +10,14 @@ contract AddressArrayUtility is
 {
 	address[] internal _uniqueAddresses;
 
-	bool public override duplicateFound;
+	bool internal _unique;
 
 	mapping(address _element => bool exists) internal _value_exists;
 
 
 	constructor ()
 	{
-		duplicateFound = false;
+		_unique = false;
 	}
 
 
@@ -107,23 +107,23 @@ contract AddressArrayUtility is
 	}
 
 	/// @inheritdoc IAddressArrayUtility
-	function difference(address[] memory _array1, address[] memory _array2)
+	function difference(address[] memory _arrayA, address[] memory _arrayB)
 		public
 		pure
 		override
 		returns (address[] memory)
 	{
-		address[] memory result = new address[](_array1.length);
+		address[] memory result = new address[](_arrayA.length);
 
 		uint256 count = 0;
 
-		for (uint256 i = 0; i < _array1.length; i++)
+		for (uint256 i = 0; i < _arrayA.length; i++)
 		{
 			bool found = false;
 
-			for (uint256 j = 0; j < _array2.length; j++)
+			for (uint256 j = 0; j < _arrayB.length; j++)
 			{
-				if (_array1[i] == _array2[j])
+				if (_arrayA[i] == _arrayB[j])
 				{
 					found = true;
 					break;
@@ -131,7 +131,7 @@ contract AddressArrayUtility is
 			}
 			if (!found)
 			{
-				result[count++] = _array1[i];
+				result[count++] = _arrayA[i];
 			}
 		}
 
@@ -164,25 +164,25 @@ contract AddressArrayUtility is
 	}
 
 	/// @inheritdoc IAddressArrayUtility
-	function intersect(address[] memory _array1, address[] memory _array2)
+	function intersect(address[] memory _arrayA, address[] memory _arrayB)
 		public
 		pure
 		override
 		returns (address[] memory)
 	{
-		uint256 resultSize = _array1.length < _array2.length ? _array1.length : _array2.length;
+		uint256 resultSize = _arrayA.length < _arrayB.length ? _arrayA.length : _arrayB.length;
 
 		address[] memory result = new address[](resultSize);
 
 		uint256 count = 0;
 
-		for (uint256 i = 0; i < _array1.length; i++)
+		for (uint256 i = 0; i < _arrayA.length; i++)
 		{
-			for (uint256 j = 0; j < _array2.length; j++)
+			for (uint256 j = 0; j < _arrayB.length; j++)
 			{
-				if (_array1[i] == _array2[j])
+				if (_arrayA[i] == _arrayB[j])
 				{
-					result[count++] = _array1[i];
+					result[count++] = _arrayA[i];
 
 					break;
 				}
@@ -266,30 +266,30 @@ contract AddressArrayUtility is
 	}
 
 	/// @inheritdoc IAddressArrayUtility
-	function union(address[] memory _array1, address[] memory _array2)
+	function union(address[] memory _arrayA, address[] memory _arrayB)
 		public
 		pure
 		override
 		returns (address[] memory)
 	{
-		uint256 totalSize = _array1.length + _array2.length;
+		uint256 totalSize = _arrayA.length + _arrayB.length;
 
 		address[] memory tempArray = new address[](totalSize);
 
 		uint256 count = 0;
 
-		for (uint256 i = 0; i < _array1.length; i++)
+		for (uint256 i = 0; i < _arrayA.length; i++)
 		{
-			tempArray[count++] = _array1[i];
+			tempArray[count++] = _arrayA[i];
 		}
 
-		for (uint256 i = 0; i < _array2.length; i++)
+		for (uint256 i = 0; i < _arrayB.length; i++)
 		{
 			bool found = false;
 
-			for (uint256 j = 0; j < _array1.length; j++)
+			for (uint256 j = 0; j < _arrayA.length; j++)
 			{
-				if (_array2[i] == _array1[j])
+				if (_arrayB[i] == _arrayA[j])
 				{
 					found = true;
 
@@ -299,7 +299,7 @@ contract AddressArrayUtility is
 
 			if (!found)
 			{
-				tempArray[count++] = _array2[i];
+				tempArray[count++] = _arrayB[i];
 			}
 		}
 
@@ -318,12 +318,12 @@ contract AddressArrayUtility is
 
 
 	/// @inheritdoc IAddressArrayUtility
-	function containsDuplicates(address[] memory _array)
+	function isUnique(address[] memory _array)
 		public
 		override
 		returns (bool)
 	{
-		duplicateFound = false;
+		_unique = false;
 
 		for (uint256 i = 0; i < _array.length; i++)
 		{
@@ -333,7 +333,7 @@ contract AddressArrayUtility is
 			}
 			else
 			{
-				duplicateFound = true;
+				_unique = true;
 
 				break;
 			}
@@ -344,7 +344,7 @@ contract AddressArrayUtility is
 			_value_exists[_array[i]] = false;
 		}
 
-		return duplicateFound;
+		return _unique;
 	}
 
 	/// @inheritdoc IAddressArrayUtility
