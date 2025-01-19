@@ -2,11 +2,11 @@
 pragma solidity ^0.8.18;
 
 
-import { IArrayUtility } from "./interface/IArrayUtility.sol";
+import { IAddressArrayUtility } from "./interface/IAddressArrayUtility.sol";
 
 
-contract ArrayUtility is
-	IArrayUtility
+contract AddressArrayUtility is
+	IAddressArrayUtility
 {
 	address[] internal _uniqueAddresses;
 
@@ -88,7 +88,7 @@ contract ArrayUtility is
 	}
 
 
-	/// @inheritdoc IArrayUtility
+	/// @inheritdoc IAddressArrayUtility
 	function contains(address[] memory _array, address _element)
 		public
 		pure
@@ -106,7 +106,7 @@ contract ArrayUtility is
 		return false;
 	}
 
-	/// @inheritdoc IArrayUtility
+	/// @inheritdoc IAddressArrayUtility
 	function difference(address[] memory _array1, address[] memory _array2)
 		public
 		pure
@@ -145,7 +145,7 @@ contract ArrayUtility is
 		return finalResult;
 	}
 
-	/// @inheritdoc IArrayUtility
+	/// @inheritdoc IAddressArrayUtility
 	function indexOf(address[] memory _array, address _element)
 		public
 		pure
@@ -163,7 +163,7 @@ contract ArrayUtility is
 		return -1;
 	}
 
-	/// @inheritdoc IArrayUtility
+	/// @inheritdoc IAddressArrayUtility
 	function intersect(address[] memory _array1, address[] memory _array2)
 		public
 		pure
@@ -199,7 +199,7 @@ contract ArrayUtility is
 		return finalResult;
 	}
 
-	/// @inheritdoc IArrayUtility
+	/// @inheritdoc IAddressArrayUtility
 	function isSorted(address[] memory _array)
 		public
 		pure
@@ -217,7 +217,7 @@ contract ArrayUtility is
 		return true;
 	}
 
-	/// @inheritdoc IArrayUtility
+	/// @inheritdoc IAddressArrayUtility
 	function reverse(address[] memory _array)
 		public
 		pure
@@ -234,7 +234,7 @@ contract ArrayUtility is
 		return reversed;
 	}
 
-	/// @inheritdoc IArrayUtility
+	/// @inheritdoc IAddressArrayUtility
 	function sort(address[] memory _array)
 		public
 		pure
@@ -246,7 +246,7 @@ contract ArrayUtility is
 		return _array;
 	}
 
-	/// @inheritdoc IArrayUtility
+	/// @inheritdoc IAddressArrayUtility
 	function subArray(address[] memory _array, uint256 start, uint256 end)
 		public
 		pure
@@ -265,7 +265,7 @@ contract ArrayUtility is
 		return result;
 	}
 
-	/// @inheritdoc IArrayUtility
+	/// @inheritdoc IAddressArrayUtility
 	function union(address[] memory _array1, address[] memory _array2)
 		public
 		pure
@@ -317,7 +317,7 @@ contract ArrayUtility is
 	/// @notice mutative
 
 
-	/// @inheritdoc IArrayUtility
+	/// @inheritdoc IAddressArrayUtility
 	function containsDuplicates(address[] memory _array)
 		public
 		override
@@ -347,7 +347,7 @@ contract ArrayUtility is
 		return duplicateFound;
 	}
 
-	/// @inheritdoc IArrayUtility
+	/// @inheritdoc IAddressArrayUtility
 	function removeDuplicates(address[] memory _array)
 		public
 		override
