@@ -10,15 +10,7 @@ contract AddressArrayUtility is
 {
 	address[] internal _uniqueAddresses;
 
-	bool internal _unique;
-
 	mapping(address _element => bool exists) internal _value_exists;
-
-
-	constructor ()
-	{
-		_unique = false;
-	}
 
 
 	function _quickSort(address[] memory _array, uint256 _left, uint256 _right)
@@ -323,7 +315,7 @@ contract AddressArrayUtility is
 		override
 		returns (bool)
 	{
-		_unique = false;
+		bool _unique = false;
 
 		for (uint256 i = 0; i < _array.length; i++)
 		{

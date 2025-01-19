@@ -12,6 +12,8 @@ import { AddressArrayUtility } from "../AddressArrayUtility.sol";
 contract TestAddressArrayUtility is
 	AddressArrayUtility
 {
+	bool public isUniqueResult;
+
 	function value_exists(address _value)
 		public
 		view
@@ -28,11 +30,9 @@ contract TestAddressArrayUtility is
 		return _uniqueAddresses;
 	}
 
-	function unique()
+	function isUniqueWrapper(address[] memory _array)
 		public
-		view
-		returns (bool)
 	{
-		return _unique;
+		isUniqueResult = isUnique(_array);
 	}
 }
