@@ -30,6 +30,11 @@ contract TestAddressArrayUtility is
 		return _uniqueAddresses;
 	}
 
+	/**
+	* @dev This function is a wrapper of the `isUnique` function. It is suppose to set the return value for the hardhat
+	* test to read.
+	* @param _array {address[]} Pass through array
+	*/
 	function isUniqueWrapper(address[] memory _array)
 		public
 	{
