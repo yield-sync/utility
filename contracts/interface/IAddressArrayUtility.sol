@@ -2,7 +2,7 @@
 pragma solidity ^0.8.18;
 
 
-interface IArrayUtility
+interface IAddressArrayUtility
 {
 	/**
 	* @return {bool}

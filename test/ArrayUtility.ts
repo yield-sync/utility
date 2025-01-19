@@ -36,7 +36,7 @@ describe("[0.0] ArrayUtility.sol", async () => {
 
 
 	beforeEach("[beforeEach] Set up contracts..", async () => {
-		arrayUtility = await deployContract("TestArrayUtility");
+		arrayUtility = await deployContract("TestAddressArrayUtility");
 	});
 
 
