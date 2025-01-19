@@ -12,7 +12,19 @@ import { AddressArrayUtility } from "../AddressArrayUtility.sol";
 contract TestAddressArrayUtility is
 	AddressArrayUtility
 {
+	address[] internal _uniqueAddresses;
+
 	bool public isUniqueResult;
+
+
+	function uniqueAddresses()
+		public
+		view
+		returns (address[] memory)
+	{
+		return _uniqueAddresses;
+	}
+
 
 	function value_exists(address _value)
 		public
@@ -22,12 +34,10 @@ contract TestAddressArrayUtility is
 		return _value_exists[_value];
 	}
 
-	function uniqueAddresses()
+	function removeDuplicatesWrapper(address[] memory _array)
 		public
-		view
-		returns (address[] memory)
 	{
-		return _uniqueAddresses;
+		_uniqueAddresses = removeDuplicates(_array);
 	}
 
 	/**

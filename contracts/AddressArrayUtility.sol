@@ -8,8 +8,6 @@ import { IAddressArrayUtility } from "./interface/IAddressArrayUtility.sol";
 contract AddressArrayUtility is
 	IAddressArrayUtility
 {
-	address[] internal _uniqueAddresses;
-
 	mapping(address _element => bool exists) internal _value_exists;
 
 
@@ -343,22 +341,27 @@ contract AddressArrayUtility is
 	function removeDuplicates(address[] memory _array)
 		public
 		override
-		returns (address[] memory)
+		returns (address[] memory _uniqueAddresses)
 	{
-		delete _uniqueAddresses;
+		address[] memory tempArray = new address[](_array.length);
+
+		uint256 uniqueCount = 0;
 
 		for (uint256 i = 0; i < _array.length; i++)
 		{
 			if (!_value_exists[_array[i]])
 			{
 				_value_exists[_array[i]] = true;
-
-				_uniqueAddresses.push(_array[i]);
+				tempArray[uniqueCount++] = _array[i];
 			}
 		}
 
-		for (uint256 i = 0; i < _uniqueAddresses.length; i++)
+		_uniqueAddresses = new address[](uniqueCount);
+
+		for (uint256 i = 0; i < uniqueCount; i++)
 		{
+			_uniqueAddresses[i] = tempArray[i];
+
 			_value_exists[_uniqueAddresses[i]] = false;
 		}
 

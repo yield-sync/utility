@@ -246,7 +246,7 @@ describe("[0.0] ArrayUtility.sol", async () => {
 		it(
 			"Should remove duplicates from an array..",
 			async () => {
-				await arrayUtility.removeDuplicates([owner.address, owner.address]);
+				await arrayUtility.removeDuplicatesWrapper([owner.address, owner.address]);
 
 				let result = await arrayUtility.uniqueAddresses();
 
