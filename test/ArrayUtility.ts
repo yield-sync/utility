@@ -40,6 +40,89 @@ describe("[0.0] ArrayUtility.sol", async () => {
 	});
 
 
+	describe("function contains()", async () => {
+		it("Should return true if array does contains value..", async () => {
+			[owner] = await ethers.getSigners();
+
+			expect(await arrayUtility.contains([owner.address], owner.address)).to.be.true;
+		});
+
+		it("Should return false if array does NOT contains value..", async () => {
+			[owner, manager] = await ethers.getSigners();
+
+			expect(await arrayUtility.contains([owner.address], manager.address)).to.be.false;
+		});
+	});
+
+	describe("function difference()", async () => {
+		it("Should return the difference of two arrays..", async () => {
+			const result = await arrayUtility.difference([owner.address, manager.address], [manager.address]);
+
+			expect(result.length).to.be.equal(1);
+			expect(result[0]).to.be.equal(owner.address);
+		});
+
+		it("Should return an empty array if no difference exists..", async () => {
+			const result = await arrayUtility.difference([owner.address], [owner.address]);
+
+			expect(result.length).to.be.equal(0);
+		});
+	});
+
+	describe("function indexOf()", async () => {
+		it("Should return the index of an element in an array..", async () => {
+			const result = await arrayUtility.indexOf([owner.address, manager.address], owner.address);
+
+			expect(result).to.be.equal(0);
+		});
+
+		it("Should return -1 if the element does not exist in the array..", async () => {
+			const result = await arrayUtility.indexOf([owner.address], manager.address);
+
+			expect(result).to.be.equal(-1);
+		});
+	});
+
+	describe("function intersect()", async () => {
+		it("Should return common elements in two arrays..", async () => {
+			const result = await arrayUtility.intersect([owner.address, manager.address], [manager.address]);
+
+			expect(result.length).to.be.equal(1);
+			expect(result[0]).to.be.equal(manager.address);
+		});
+
+		it("Should return an empty array if no common elements exist..", async () => {
+			const result = await arrayUtility.intersect([owner.address], [manager.address]);
+
+			expect(result.length).to.be.equal(0);
+		});
+	});
+
+	describe("function isSorted()", async () => {
+		it("Should return true if the array is sorted..", async () => {
+			const result = await arrayUtility.isSorted([ethers.constants.AddressZero, manager.address, owner.address]);
+
+			expect(result).to.be.equal(true);
+		});
+
+		it("Should return false if the array is not sorted..", async () => {
+			const result = await arrayUtility.isSorted([owner.address, ethers.constants.AddressZero, manager.address]);
+
+			expect(result).to.be.equal(false);
+		});
+	});
+
+	describe("function reverse()", async () => {
+		it("Should return the reversed array..", async () => {
+			const result = await arrayUtility.reverse(
+				[owner.address, manager.address]
+			);
+
+			expect(result[0]).to.be.equal(manager.address);
+			expect(result[1]).to.be.equal(owner.address);
+		});
+	});
+
 	describe("function sort()", async () => {
 		it(
 			"Should sort an unordered array..",
@@ -77,6 +160,52 @@ describe("[0.0] ArrayUtility.sol", async () => {
 				}
 			}
 		);
+	});
+
+	describe("function subArray()", async () => {
+		it("Should return a subarray between the specified indices..", async () => {
+			const result = await arrayUtility.subArray(
+				[ethers.constants.AddressZero, owner.address, manager.address],
+				1,
+				3
+			);
+
+			expect(result.length).to.be.equal(2);
+			expect(result[0]).to.be.equal(owner.address);
+			expect(result[1]).to.be.equal(manager.address);
+		});
+
+		it("Should revert if the indices are invalid..", async () => {
+			await expect(
+				arrayUtility.subArray([ethers.constants.AddressZero, owner.address, manager.address], 2, 1)
+			).to.be.revertedWith("Invalid indices");
+		});
+	});
+
+	describe("function union()", async () => {
+		it("Should return the union of two arrays, removing duplicates..", async () => {
+			const result = await arrayUtility.union(
+				[owner.address, manager.address],
+				[manager.address, ethers.constants.AddressZero]
+			);
+
+			expect(result.length).to.be.equal(3);
+			expect(result).to.include.members([
+				owner.address,
+				manager.address,
+				ethers.constants.AddressZero,
+			]);
+		});
+
+		it("Should handle arrays with no duplicates correctly..", async () => {
+			const result = await arrayUtility.union(
+				[owner.address],
+				[manager.address]
+			);
+
+			expect(result.length).to.be.equal(2);
+			expect(result).to.include.members([owner.address, manager.address]);
+		});
 	});
 
 	describe("function containsDuplicates()", async () => {
