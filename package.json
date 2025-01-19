@@ -4,7 +4,7 @@
 	"description": "Refer to README.md",
 	"main": "",
 	"scripts": {
-		"deploy-to-base-sepolia": "npx hardhat run scripts/depoly.ts --network base-sepolia",
+		"deploy-to-base-sepolia": "npx hardhat run scripts/deploy.ts --network base-sepolia",
 		"deploy-to-sepolia": "npx hardhat run scripts/deploy.ts --network sepolia"
 	},
 	"repository": {
