@@ -352,6 +352,7 @@ contract AddressArrayUtility is
 			if (!_value_exists[_array[i]])
 			{
 				_value_exists[_array[i]] = true;
+
 				tempArray[uniqueCount++] = _array[i];
 			}
 		}
