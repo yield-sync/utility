@@ -359,7 +359,7 @@ contract AddressArrayUtility is
 
 		_uniqueAddresses = new address[](uniqueCount);
 
-		for (uint256 i = 0; i < uniqueCount; i++)
+		for (uint256 i = 0; i < _uniqueAddresses.length; i++)
 		{
 			_uniqueAddresses[i] = tempArray[i];
 
