@@ -109,7 +109,7 @@ coverage
 coverage.json
 typechain
 typechain-types
-pacakge-lock.json
+package-lock.json
 
 # Hardhat files
 cache
