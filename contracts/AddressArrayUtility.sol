@@ -313,7 +313,7 @@ contract AddressArrayUtility is
 		override
 		returns (bool)
 	{
-		bool _unique = false;
+		bool _unique = true;
 
 		for (uint256 i = 0; i < _array.length; i++)
 		{
@@ -323,7 +323,7 @@ contract AddressArrayUtility is
 			}
 			else
 			{
-				_unique = true;
+				_unique = false;
 
 				break;
 			}

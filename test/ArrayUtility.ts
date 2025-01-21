@@ -210,18 +210,18 @@ describe("[0.0] ArrayUtility.sol", async () => {
 
 	describe("function isUnique()", async () => {
 		it(
-			"Should return true if duplicates are in array..",
+			"Should return true if duplicates NOT in array..",
 			async () => {
-				await arrayUtility.isUniqueWrapper([owner.address, owner.address]);
+				await arrayUtility.isUniqueWrapper([owner.address, manager.address]);
 
 				expect(await arrayUtility.isUniqueResult()).to.be.equal(true);
 			}
 		);
 
 		it(
-			"Should return false if duplicates NOT in array..",
+			"Should return false if duplicates are in array..",
 			async () => {
-				await arrayUtility.isUniqueWrapper([owner.address, manager.address]);
+				await arrayUtility.isUniqueWrapper([owner.address, owner.address]);
 
 				expect(await arrayUtility.isUniqueResult()).to.be.equal(false);
 			}
@@ -232,7 +232,7 @@ describe("[0.0] ArrayUtility.sol", async () => {
 			async () => {
 				await arrayUtility.isUniqueWrapper([owner.address, manager.address]);
 
-				expect(await arrayUtility.isUniqueResult()).to.be.equal(false);
+				expect(await arrayUtility.isUniqueResult()).to.be.equal(true);
 
 				expect(await arrayUtility.value_exists(owner.address)).to.be.equal(false);
 
