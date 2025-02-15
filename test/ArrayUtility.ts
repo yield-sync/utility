@@ -28,7 +28,7 @@ async function deployContract(_contractFactory: string, params: any[] = []): Pro
 }
 
 
-describe("[0.0] ArrayUtility.sol", async () => {
+describe("ArrayUtility.sol", async () => {
 	let arrayUtility: Contract;
 
 	let owner: VoidSigner;

@@ -8,8 +8,8 @@ import { IPercentUtility } from "./interface/IPercentUtility.sol";
 contract PercentUtility is
 	IPercentUtility
 {
-	uint16 public constant override ONE_HUNDRED_PERCENT = 1e4;
-	uint16 public constant override DIVISOR = 1e4;
+	uint16 public constant override ONE_HUNDRED_PERCENT = 10_000;
+	uint16 public constant override DIVISOR = 10_000;
 
 
 	/// @inheritdoc IPercentUtility
@@ -34,7 +34,7 @@ contract PercentUtility is
 		override
 		returns (uint16)
 	{
-		require(_b > 0, "Division by zero");
+		require(_b > 0, "Division by 0");
 
 		uint256 result = (_a * ONE_HUNDRED_PERCENT) / _b;
 
