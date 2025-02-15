@@ -8,9 +8,7 @@ import { IPercentUtility } from "./interface/IPercentUtility.sol";
 contract PercentUtility is
 	IPercentUtility
 {
-	/// @inheritdoc IPercentUtility
 	uint16 public constant override ONE_HUNDRED_PERCENT = 1e4;
-	/// @inheritdoc IPercentUtility
 	uint16 public constant override DIVISOR = 1e4;
 
 
