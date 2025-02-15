@@ -29,7 +29,7 @@ contract PercentUtility is
 		override
 		returns (uint256)
 	{
-		require(_b > 0, "Division by 0");
+		require(_b > 0, "_b == 0");
 
 		return uint256(_a * ONE_HUNDRED_PERCENT / _b);
 	}

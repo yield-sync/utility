@@ -133,7 +133,7 @@ describe("PercentUtility.sol", async () => {
 			const amountA: BigNumber = ethers.utils.parseUnits("100", 18);
 			const amountB: BigNumber = ethers.utils.parseUnits("0", 18);
 
-			await expect(percentUtility.percentOf(amountA, amountB)).to.be.revertedWith("Division by 0");
+			await expect(percentUtility.percentOf(amountA, amountB)).to.be.revertedWith("_b == 0");
 		});
 
 		it("Should return the correct percentage of two amounts..", async () => {
