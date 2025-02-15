@@ -31,8 +31,6 @@ contract PercentUtility is
 	{
 		require(_b > 0, "Division by 0");
 
-		uint256 result = (_a * ONE_HUNDRED_PERCENT) / _b;
-
-		return uint256(result);
+		return uint256((_a * ONE_HUNDRED_PERCENT) / _b);
 	}
 }
