@@ -13,8 +13,8 @@ contract PercentUtility is
 	using SafeMath for uint256;
 
 
-	uint256 public constant override DIVISOR = 10_000;
-	uint256 public constant override ONE_HUNDRED_PERCENT = 10_000;
+	uint256 public constant override PERCENT_DIVISOR = 10_000;
+	uint256 public constant override PERCENT_ONE_HUNDRED = 10_000;
 
 
 	/// @inheritdoc IPercentUtility
@@ -24,7 +24,7 @@ contract PercentUtility is
 		override
 		returns (uint256)
 	{
-		return _a.mul(_percent).div(DIVISOR);
+		return _a.mul(_percent).div(PERCENT_DIVISOR);
 	}
 
 	/// @inheritdoc IPercentUtility
@@ -34,6 +34,6 @@ contract PercentUtility is
 		override
 		returns (uint256)
 	{
-		return _a.mul(ONE_HUNDRED_PERCENT).div(_b, "_b == 0");
+		return _a.mul(PERCENT_ONE_HUNDRED).div(_b, "_b == 0");
 	}
 }

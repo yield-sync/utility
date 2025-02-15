@@ -9,7 +9,7 @@ interface IPercentUtility
 	* @notice Divisor
 	* @return {uint256}
 	*/
-	function DIVISOR()
+	function PERCENT_DIVISOR()
 		external
 		view
 		returns (uint256)
@@ -20,7 +20,7 @@ interface IPercentUtility
 	* @notice One Hundred Percent
 	* @return {uint256}
 	*/
-	function ONE_HUNDRED_PERCENT()
+	function PERCENT_ONE_HUNDRED()
 		external
 		view
 		returns (uint256)
