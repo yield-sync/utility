@@ -8,22 +8,24 @@ import { IPercentUtility } from "./interface/IPercentUtility.sol";
 contract PercentUtility is
 	IPercentUtility
 {
-	uint16 public constant ONE_HUNDRED_PERCENT = 1e4;
-	uint16 public constant DIVISOR = 1e4;
+	/// @inheritdoc IPercentUtility
+	uint16 public constant override ONE_HUNDRED_PERCENT = 1e4;
+	/// @inheritdoc IPercentUtility
+	uint16 public constant override DIVISOR = 1e4;
 
 
 	/// @inheritdoc IPercentUtility
-	function getPercentAmount(uint16 percent, uint256 x)
+	function getPercentAmount(uint16 _percent, uint256 _x)
 		public
 		pure
 		override
 		returns (uint256)
 	{
-		require(percent <= ONE_HUNDRED_PERCENT, "percent > ONE_HUNDRED_PERCENT");
+		require(_percent <= ONE_HUNDRED_PERCENT, "_percent > ONE_HUNDRED_PERCENT");
 
 		unchecked
 		{
-			return (x * percent) / DIVISOR;
+			return (_x * _percent) / DIVISOR;
 		}
 	}
 }
