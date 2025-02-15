@@ -19,10 +19,7 @@ contract PercentUtility is
 		override
 		returns (uint256)
 	{
-		unchecked
-		{
-			return (_a * _percent) / DIVISOR;
-		}
+		return (_a * _percent) / DIVISOR;
 	}
 
 	/// @inheritdoc IPercentUtility
