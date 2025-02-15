@@ -2,12 +2,17 @@
 pragma solidity ^0.8.18;
 
 
+import { SafeMath } from "@openzeppelin/contracts/utils/math/SafeMath.sol";
+
 import { IPercentUtility } from "./interface/IPercentUtility.sol";
 
 
 contract PercentUtility is
 	IPercentUtility
 {
+	using SafeMath for uint256;
+
+
 	uint256 public constant override DIVISOR = 10_000;
 	uint256 public constant override ONE_HUNDRED_PERCENT = 10_000;
 
@@ -19,7 +24,7 @@ contract PercentUtility is
 		override
 		returns (uint256)
 	{
-		return _a * _percent / DIVISOR;
+		return _a.mul(_percent).div(DIVISOR);
 	}
 
 	/// @inheritdoc IPercentUtility
@@ -29,8 +34,6 @@ contract PercentUtility is
 		override
 		returns (uint256)
 	{
-		require(_b > 0, "_b == 0");
-
-		return uint256(_a * ONE_HUNDRED_PERCENT / _b);
+		return _a.mul(ONE_HUNDRED_PERCENT).div(_b, "_b == 0");
 	}
 }
