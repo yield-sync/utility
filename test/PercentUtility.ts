@@ -32,6 +32,9 @@ async function deployContract(_contractFactory: string, params: any[] = []): Pro
 describe("PercentUtility.sol", async () => {
 	let percentUtility: Contract;
 
+	let DIVISOR: number = 10_000;
+	let ONE_HUNDRED_PERCENT: number = 10_000;
+
 	let owner: VoidSigner;
 	let manager: VoidSigner;
 
@@ -41,38 +44,65 @@ describe("PercentUtility.sol", async () => {
 	});
 
 
+	describe("contructor", async () => {
+		it("Should have values set correctly..", async () => {
+			expect(await percentUtility.ONE_HUNDRED_PERCENT()).to.be.equal(ONE_HUNDRED_PERCENT);
+			expect(await percentUtility.DIVISOR()).to.be.equal(DIVISOR);
+		});
+	});
+
 	describe("function percentAmount()", async () => {
 		it("Should return percent of the amount..", async () => {
 			const TEST_CASES = [
 				{
-					percent: ethers.utils.parseUnits("1", 4),
+					percent: 10_000,
 					amount: ethers.utils.parseUnits("1", 18),
 					expect: ethers.utils.parseUnits("1", 18),
 				},
 				{
-					percent: ethers.utils.parseUnits(".5", 4),
+					percent: 5_000,
 					amount: ethers.utils.parseUnits("1", 18),
 					expect: ethers.utils.parseUnits(".5", 18),
 				},
 				{
-					percent: ethers.utils.parseUnits(".25", 4),
+					percent: 2_500,
 					amount: ethers.utils.parseUnits("1", 18),
 					expect: ethers.utils.parseUnits(".25", 18),
 				},
 				{
-					percent: ethers.utils.parseUnits("1", 4),
+					percent: 10_000,
 					amount: ethers.utils.parseUnits("10", 18),
 					expect: ethers.utils.parseUnits("10", 18),
 				},
 				{
-					percent: ethers.utils.parseUnits(".5", 4),
+					percent: 5_000,
 					amount: ethers.utils.parseUnits("10", 18),
 					expect: ethers.utils.parseUnits("5", 18),
 				},
 				{
-					percent: ethers.utils.parseUnits(".9999", 4),
+					percent: 9_999,
 					amount: ethers.utils.parseUnits("10", 18),
 					expect: ethers.utils.parseUnits("9.999", 18),
+				},
+				{
+					percent: 10_100,
+					amount: ethers.utils.parseUnits("1", 18),
+					expect: ethers.utils.parseUnits("1.01", 18),
+				},
+				{
+					percent: 10_001,
+					amount: ethers.utils.parseUnits("1", 18),
+					expect: ethers.utils.parseUnits("1.0001", 18),
+				},
+				{
+					percent: 9_999,
+					amount: ethers.utils.parseUnits("1", 18),
+					expect: ethers.utils.parseUnits("0.9999", 18),
+				},
+				{
+					percent: 99_999,
+					amount: ethers.utils.parseUnits("1", 18),
+					expect: ethers.utils.parseUnits("9.9999", 18),
 				},
 			];
 
@@ -84,16 +114,6 @@ describe("PercentUtility.sol", async () => {
 
 				expect(RESULT).to.be.equal(TC.expect);
 			}
-		});
-
-		it("Should revert if percent is greater than 100%..", async () => {
-			// 101% (should fail)
-			const highPercent = ethers.utils.parseUnits("1.01", 4);
-			const amount = ethers.utils.parseUnits("1", 18);
-
-			await expect(
-				percentUtility.percentAmount(highPercent, amount)
-			).to.be.revertedWith("_percent > ONE_HUNDRED_PERCENT");
 		});
 
 		it("Should handle small amounts and decimals correctly..", async () => {
@@ -109,22 +129,39 @@ describe("PercentUtility.sol", async () => {
 	});
 
 	describe("function percentOf()", async () => {
+		it("Should revert when dividing by zero..", async () => {
+			const amountA: BigNumber = ethers.utils.parseUnits("100", 18);
+			const amountB: BigNumber = ethers.utils.parseUnits("0", 18);
+
+			await expect(percentUtility.percentOf(amountA, amountB)).to.be.revertedWith("Division by 0");
+		});
+
 		it("Should return the correct percentage of two amounts..", async () => {
 			const TEST_CASES = [
 				{
-					amountA: ethers.utils.parseUnits("5234.23", 18),
-					amountB: ethers.utils.parseUnits("10000", 18),
-					expectedPercent: ethers.utils.parseUnits(".5234", 4),
-				},
-				{
 					amountA: ethers.utils.parseUnits("1", 18),
 					amountB: ethers.utils.parseUnits("1", 18),
-					expectedPercent: ethers.utils.parseUnits("1", 4),
+					expectedPercent: ONE_HUNDRED_PERCENT,
+				},
+				{
+					amountA: ethers.utils.parseUnits("5234.23", 18),
+					amountB: ethers.utils.parseUnits("10000", 18),
+					expectedPercent: 5234,
 				},
 				{
 					amountA: ethers.utils.parseUnits("500", 18),
 					amountB: ethers.utils.parseUnits("10000", 18),
-					expectedPercent: ethers.utils.parseUnits(".05", 4),
+					expectedPercent: 500,
+				},
+				{
+					amountA: ethers.utils.parseUnits("1000000", 18),
+					amountB: ethers.utils.parseUnits("1", 18),
+					expectedPercent: 10_000_000_000,
+				},
+				{
+					amountA: ethers.utils.parseUnits("1000000", 18),
+					amountB: ethers.utils.parseUnits(".01", 18),
+					expectedPercent: 1_000_000_000_000
 				},
 			];
 
@@ -133,15 +170,8 @@ describe("PercentUtility.sol", async () => {
 
 				let result_percent = await percentUtility.percentOf(TC.amountA, TC.amountB);
 
-				expect(result_percent).to.be.equal(TC.expectedPercent); // 52.34%
+				expect(result_percent).to.be.equal(TC.expectedPercent);
 			}
-		});
-
-		it("Should revert when dividing by zero..", async () => {
-			const amountA: BigNumber = ethers.utils.parseUnits("100", 18);
-			const amountB: BigNumber = ethers.utils.parseUnits("0", 18);
-
-			await expect(percentUtility.percentOf(amountA, amountB)).to.be.revertedWith("Division by 0");
 		});
 	});
 });
