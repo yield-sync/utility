@@ -28,13 +28,24 @@ interface IPercentUtility
 
 
 	/**
-	 * @notice Get Percent
-	 * @param percent {uint16}
-	 * @param x {uint256}
+	 * @notice Percent Amount of `_a`
+	 * @param _percent {uint16}
+	 * @param _a {uint256}
 	 */
-	function getPercentAmount(uint16 percent, uint256 x)
+	function percentAmount(uint16 _percent, uint256 _a)
 		external
 		pure
 		returns (uint256)
+	;
+
+	/**
+	 * @notice `_a` percent of `_b`
+	 * @param _a {uint256}
+	 * @param _b {uint256}
+	 */
+	function percentOf(uint256 _a, uint256 _b)
+		external
+		pure
+		returns (uint16)
 	;
 }

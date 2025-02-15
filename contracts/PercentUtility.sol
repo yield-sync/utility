@@ -13,7 +13,7 @@ contract PercentUtility is
 
 
 	/// @inheritdoc IPercentUtility
-	function getPercentAmount(uint16 _percent, uint256 _x)
+	function percentAmount(uint16 _percent, uint256 _a)
 		public
 		pure
 		override
@@ -23,7 +23,23 @@ contract PercentUtility is
 
 		unchecked
 		{
-			return (_x * _percent) / DIVISOR;
+			return (_a * _percent) / DIVISOR;
 		}
+	}
+
+	/// @inheritdoc IPercentUtility
+	function percentOf(uint256 _a, uint256 _b)
+		public
+		pure
+		override
+		returns (uint16)
+	{
+		require(_b > 0, "Division by zero");
+
+		uint256 result = (_a * ONE_HUNDRED_PERCENT) / _b;
+
+		require(result <= type(uint16).max, "result >= type(uint16).max");
+
+		return uint16(result);
 	}
 }
