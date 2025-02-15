@@ -19,7 +19,7 @@ contract PercentUtility is
 		override
 		returns (uint256)
 	{
-		return (_a * _percent) / DIVISOR;
+		return _a * _percent / DIVISOR;
 	}
 
 	/// @inheritdoc IPercentUtility
@@ -31,6 +31,6 @@ contract PercentUtility is
 	{
 		require(_b > 0, "Division by 0");
 
-		return uint256((_a * ONE_HUNDRED_PERCENT) / _b);
+		return uint256(_a * ONE_HUNDRED_PERCENT / _b);
 	}
 }
