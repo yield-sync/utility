@@ -13,7 +13,9 @@ contract PercentUtility is
 	using SafeMath for uint256;
 
 
+	/// @inheritdoc IPercentUtility
 	uint256 public constant override PERCENT_DIVISOR = 10_000;
+	/// @inheritdoc IPercentUtility
 	uint256 public constant override PERCENT_ONE_HUNDRED = 10_000;
 
 
