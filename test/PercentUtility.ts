@@ -32,12 +32,6 @@ async function deployContract(_contractFactory: string, params: any[] = []): Pro
 describe("PercentUtility.sol", async () => {
 	let percentUtility: Contract;
 
-	let DIVISOR: number = 10_000;
-	let ONE_HUNDRED_PERCENT: number = 10_000;
-
-	let owner: VoidSigner;
-	let manager: VoidSigner;
-
 
 	beforeEach("[beforeEach] Set up contracts..", async () => {
 		percentUtility = await deployContract("PercentUtility");
@@ -46,8 +40,7 @@ describe("PercentUtility.sol", async () => {
 
 	describe("contructor", async () => {
 		it("Should have values set correctly..", async () => {
-			expect(await percentUtility.ONE_HUNDRED_PERCENT()).to.be.equal(ONE_HUNDRED_PERCENT);
-			expect(await percentUtility.DIVISOR()).to.be.equal(DIVISOR);
+			expect(await percentUtility.PERCENT_ONE_HUNDRED()).to.be.equal(10_000);
 		});
 	});
 
@@ -141,7 +134,7 @@ describe("PercentUtility.sol", async () => {
 				{
 					amountA: ethers.utils.parseUnits("1", 18),
 					amountB: ethers.utils.parseUnits("1", 18),
-					expectedPercent: ONE_HUNDRED_PERCENT,
+					expectedPercent: await percentUtility.PERCENT_ONE_HUNDRED(),
 				},
 				{
 					amountA: ethers.utils.parseUnits("5234.23", 18),

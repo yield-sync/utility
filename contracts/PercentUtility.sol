@@ -14,8 +14,6 @@ contract PercentUtility is
 
 
 	/// @inheritdoc IPercentUtility
-	uint256 public constant override PERCENT_DIVISOR = 10_000;
-	/// @inheritdoc IPercentUtility
 	uint256 public constant override PERCENT_ONE_HUNDRED = 10_000;
 
 
@@ -26,7 +24,7 @@ contract PercentUtility is
 		override
 		returns (uint256)
 	{
-		return _a.mul(_percent).div(PERCENT_DIVISOR);
+		return _a.mul(_percent).div(PERCENT_ONE_HUNDRED);
 	}
 
 	/// @inheritdoc IPercentUtility
